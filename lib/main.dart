@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'op.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,11 +10,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ruse',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      home: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'RUSE',
+            style: TextStyle(),
+          ),
+          backgroundColor: Color.fromRGBO(26, 30, 31, 0.949999988079071),
+        ),
+        body: SplashWidget(),
       ),
-      home: Text('RUSE'),
     );
   }
 }
