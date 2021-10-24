@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'screens/login.dart';
+import 'package:ruse/screens/login.dart';
+import 'package:ruse/screens/signUp.dart';
+import 'splashScreen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'RUSE',
-            style: TextStyle(),
-          ),
-          backgroundColor: Color.fromRGBO(26, 30, 31, 0.949999988079071),
-        ),
-        body: Login4Widget(),
-      ),
+      theme: ThemeData(
+          primaryColor: Colors.red,
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(secondary: Colors.yellowAccent)),
+      debugShowCheckedModeBanner: false,
+      home: splashScreen(),
+      routes: {
+        '/login': (context) => Login(),
+        '/signUp': (context) => signUp(),
+      },
     );
   }
 }

@@ -1,10 +1,29 @@
+// ignore: camel_case_types
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SplashWidget extends StatelessWidget {
+class splashScreen extends StatefulWidget {
+  const splashScreen({Key? key}) : super(key: key);
+
+  @override
+  _splashScreenState createState() => _splashScreenState();
+}
+
+// ignore: camel_case_types
+class _splashScreenState extends State<splashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 2), () => Navigator.pushNamed(context, '/login'));
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Figma Flutter Generator SplashWidget - FRAME
-    return Stack(
+    return Scaffold(
+        body: Stack(
       children: [
         Scaffold(
           backgroundColor: Color.fromRGBO(26, 30, 31, 0.949999988079071),
@@ -21,10 +40,11 @@ class SplashWidget extends StatelessWidget {
         Column(
           children: [
             Expanded(
-                child: Image.asset(
-              "assets/images/logo.png",
-              width: 300.0,
-            )),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 200.0,
+              ),
+            ),
             Expanded(
                 child: Image.asset(
               "assets/images/t.png",
@@ -36,7 +56,7 @@ class SplashWidget extends StatelessWidget {
             ),
             Expanded(
                 child: Text(
-              'Background Changer',
+              'Object Manipulator',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color.fromRGBO(255, 255, 255, 1),
@@ -49,6 +69,6 @@ class SplashWidget extends StatelessWidget {
           ],
         )
       ],
-    );
+    ));
   }
 }

@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+// ignore: camel_case_types
+class signUp extends StatefulWidget {
+  const signUp({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _signUpState createState() => _signUpState();
 }
 
-class _LoginState extends State<Login> {
+// ignore: camel_case_types
+class _signUpState extends State<signUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,19 +19,12 @@ class _LoginState extends State<Login> {
         children: [
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 80.0),
-                child: Center(
-                  child: Expanded(
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: 200.0,
-                    ),
+              Center(
+                child: Expanded(
+                  child: Image.asset(
+                    "assets/images/logo.png",
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 30.0,
               ),
               Column(
                 children: [
@@ -56,9 +52,6 @@ class _LoginState extends State<Login> {
                       ),
                       color: Color.fromRGBO(54, 131, 115, 1),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.0,
                   ),
                   Container(
                     width: 400.0,
