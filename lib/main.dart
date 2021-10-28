@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:ruse/components/constants.dart';
+import 'package:ruse/screens/FrontScreen.dart';
 import 'package:ruse/screens/login.dart';
 import 'package:ruse/screens/signUp.dart';
 import 'splashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(Ruse());
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class Ruse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.red,
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: Colors.yellowAccent)),
+        primaryColor: kPrimaryColor,
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(secondary: kSecondaryColor),
+      ),
       debugShowCheckedModeBanner: false,
-      home: splashScreen(),
+      initialRoute: SplashScreen.id,
       routes: {
-        '/login': (context) => Login(),
-        '/signUp': (context) => signUp(),
+        SplashScreen.id: (context) => SplashScreen(),
+        Login.id: (context) => Login(),
+        SignUp.id: (context) => SignUp(),
+        FrontScreen.id: (context) => FrontScreen(),
       },
     );
   }

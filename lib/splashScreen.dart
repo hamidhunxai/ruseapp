@@ -1,23 +1,22 @@
-// ignore: camel_case_types
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ruse/components/constants.dart';
+import 'package:ruse/screens/login.dart';
 
-class splashScreen extends StatefulWidget {
-  const splashScreen({Key? key}) : super(key: key);
-
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+  static String id = "SplashScreen";
   @override
-  _splashScreenState createState() => _splashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-// ignore: camel_case_types
-class _splashScreenState extends State<splashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 2), () => Navigator.pushNamed(context, '/login'));
+    Timer(Duration(seconds: 2), () => Navigator.pushNamed(context, Login.id));
   }
 
   @override
@@ -26,14 +25,9 @@ class _splashScreenState extends State<splashScreen> {
         body: Stack(
       children: [
         Scaffold(
-          backgroundColor: Color.fromRGBO(26, 30, 31, 0.949999988079071),
+          backgroundColor: kSecondaryColor,
           body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/beaut.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+            decoration: splashDecoration,
             margin: const EdgeInsets.only(left: 220.0),
           ),
         ),
@@ -59,7 +53,7 @@ class _splashScreenState extends State<splashScreen> {
               'Object Manipulator',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
+                  color: kTextColor,
                   fontFamily: 'Mukta',
                   fontSize: 24,
                   letterSpacing: 0,

@@ -1,141 +1,143 @@
 import 'package:flutter/material.dart';
+import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/box.dart';
+import 'package:ruse/components/constants.dart';
+import 'package:ruse/screens/FrontScreen.dart';
+import 'package:ruse/screens/signUp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  static String id = "Login";
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  final _auth = FirebaseAuth.instance;
+
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(26, 30, 31, 0.949999988079071),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 80.0),
-                child: Center(
-                  child: Expanded(
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: 200.0,
+      backgroundColor: kSecondaryColor,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 100.0,
+              child: Image.asset('assets/images/logo.png'),
+            ),
+            Box(),
+            Column(
+              children: [
+                Text(
+                  'SIGN IN',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: kTextColor,
+                      fontFamily: 'Lato',
+                      fontSize: 12,
+                      letterSpacing:
+                          0 /*percentages not used in flutter. defaulting to zero*/,
+                      fontWeight: FontWeight.normal,
+                      height: 1),
+                ),
+                Container(
+                  width: 52,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
                     ),
+                    color: kPrimaryColor,
                   ),
                 ),
+                SizedBox(
+                  height: 50.0,
+                ),
+
+                // Figma Flutter Generator TextWidget - TEXT
+              ],
+            ),
+            TextField(
+              onChanged: (value) {
+                email = value;
+              },
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
+              decoration: kTextFieldDecoration.copyWith(
+                hintText: 'Enter your email',
               ),
-              SizedBox(
-                height: 30.0,
+            ),
+            Box(),
+            TextField(
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                password = value;
+              },
+              obscureText: true,
+              decoration: kTextFieldDecoration.copyWith(
+                hintText: 'Enter your Password',
               ),
-              Column(
-                children: [
-                  Text(
-                    'SIGN IN',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 1),
-                        fontFamily: 'Lato',
-                        fontSize: 12,
-                        letterSpacing:
-                            0 /*percentages not used in flutter. defaulting to zero*/,
-                        fontWeight: FontWeight.normal,
-                        height: 1),
-                  ),
-                  Container(
-                    width: 52,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                      color: Color.fromRGBO(54, 131, 115, 1),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Container(
-                    width: 400.0,
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter a User Name',
-                        fillColor: Colors.white,
-                        filled: true,
-                        contentPadding: EdgeInsets.all(20.0),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 400.0,
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: TextField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter a Password',
-                        fillColor: Colors.white,
-                        filled: true,
-                        contentPadding: EdgeInsets.all(20.0),
-                      ),
-                    ),
-                  ),
-                  // Figma Flutter Generator TextWidget - TEXT
-                  Container(
-                    width: 400.0,
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      'FORGOT Password?',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          fontFamily: 'Lato',
-                          fontSize: 12,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 2.5833333333333335),
-                    ),
-                  ),
-                ],
+            ),
+            Text(
+              'FORGOT Password?',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  color: kTextColor,
+                  fontFamily: 'Lato',
+                  fontSize: 12,
+                  letterSpacing:
+                      0 /*percentages not used in flutter. defaulting to zero*/,
+                  fontWeight: FontWeight.normal,
+                  height: 2.5833333333333335),
+            ),
+            Box(),
+            Expanded(
+              flex: 10,
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: RoundedButton(
+                  title: 'Login',
+                  colour: kPrimaryColor,
+                  onPressed: () async {
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      // ignore: unnecessary_null_comparison
+                      if (user != null) {
+                        Navigator.pushNamed(context, FrontScreen.id);
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                ),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromRGBO(54, 131, 115, 1), // background
-                      padding: EdgeInsets.only(
-                          left: 170.0, right: 150.0, top: 20.0, bottom: 20.0),
-                      alignment: Alignment.center,
-                      onPrimary: Colors.white,
-                      // foreground
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signUp');
-                    },
-                    child: Text('Login'),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                ],
+            ),
+            Box(),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: RoundedButton(
+                  title: 'Register',
+                  colour: kPrimaryColor,
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignUp.id);
+                  },
+                ),
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
