@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "488350645508",
+    "project_id": "ruse-46f86",
+    "storage_bucket": "ruse-46f86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488350645508:android:d783e6efaf7aa0fd3b2451",
+        "android_client_info": {
+          "package_name": "com.ruseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488350645508-ir904br2d6h5ljr97quvnmepoqilk4ci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ruseapp",
+            "certificate_hash": "24af00b1927dbea3615aa80b9bdc78af0ead2013"
+          }
+        },
+        {
+          "client_id": "488350645508-15jh55esjm2r4r5ptmj1gc9i5uu6bkhp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4d-xGUJFylUVPx6S48LG3leVzoQ0ltA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488350645508-15jh55esjm2r4r5ptmj1gc9i5uu6bkhp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

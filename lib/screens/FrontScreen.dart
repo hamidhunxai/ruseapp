@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:ruse/components/constants.dart';
+import 'package:ruse/controllers/login_controller.dart';
+import 'package:ruse/screens/signIn.dart';
 
 class FrontScreen extends StatefulWidget {
   static String id = "FrontScreen";
@@ -8,8 +12,10 @@ class FrontScreen extends StatefulWidget {
 }
 
 class _FrontScreenState extends State<FrontScreen> {
+  final user = FirebaseAuth.instance.currentUser;
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;
+
   @override
   void initState() {
     super.initState();
@@ -38,42 +44,59 @@ class _FrontScreenState extends State<FrontScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                Navigator.pushNamed(context, SignIn.id);
               }),
         ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        title: Text('RUSE'),
+        backgroundColor: kPrimaryColor,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      //Implement send functionality.
-                    },
-                    child: Text(
-                      'Send',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: loginUI(),
       ),
+    );
+  }
+
+  loginUI() {
+    return Consumer<LoginController>(builder: (context, model, child) {
+      //if we are alreadylogin
+      if (model.userDetails != null) {
+        return Center(
+          child: LoggedInUI(model),
+        );
+      } else {
+        return TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, SignIn.id);
+          },
+          child: Text("logout"),
+        );
+      }
+    });
+  }
+
+  LoggedInUI(LoginController model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+
+      //out ui will 3 childern name, email, photo, logout
+      children: [
+        CircleAvatar(
+            backgroundImage:
+                Image.network(model.userDetails!.photoURL ?? "").image,
+            radius: 50),
+        Text(model.userDetails!.displayName ?? ""),
+        Text(model.userDetails!.email ?? ""),
+
+        //logout
+        ActionChip(
+          avatar: const Icon(Icons.logout),
+          onPressed: () {
+            Provider.of<LoginController>(context, listen: false).logout();
+          },
+          label: Text("logout"),
+        ),
+      ],
     );
   }
 }
