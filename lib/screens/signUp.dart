@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ruse/components/RoundedButton.dart';
-import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
+import 'package:ruse/components/logo.dart';
 import 'package:ruse/components/progressDialog.dart';
 import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/FrontScreen.dart';
@@ -21,17 +21,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 10),
-    vsync: this,
-  )..repeat();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +29,11 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
         child: Column(
           children: [
-            AnimatedRuse(controller: _controller),
             Box(),
             Expanded(
               child: Column(
                 children: [
+                  Logo(),
                   Text(
                     'SIGN UP',
                     textAlign: TextAlign.center,

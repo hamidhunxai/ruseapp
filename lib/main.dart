@@ -15,8 +15,6 @@ void main() async {
   runApp(Ruse());
 }
 
-
-
 class Ruse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class Ruse extends StatelessWidget {
               ColorScheme.fromSwatch().copyWith(secondary: kSecondaryColor),
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: SignIn.id,
+        initialRoute: SplashScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           SignIn.id: (context) => SignIn(),

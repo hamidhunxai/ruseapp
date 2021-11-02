@@ -1,35 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:ruse/components/RoundedButton.dart';
-import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
-
+import 'package:ruse/components/logo.dart';
 import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/signUp.dart';
 
 class ForgetPassword extends StatefulWidget {
+  ForgetPassword({Key? key}) : super(key: key);
   static String id = "ForgetPassword";
 
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword>
-    with TickerProviderStateMixin {
+class _ForgetPasswordState extends State<ForgetPassword> {
   final _auth = FirebaseAuth.instance;
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 10),
-    vsync: this,
-  )..repeat();
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +27,10 @@ class _ForgetPasswordState extends State<ForgetPassword>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AnimatedRuse(controller: _controller),
             Box(),
             Column(
               children: [
+                Logo(),
                 Text(
                   'SIGN IN',
                   textAlign: TextAlign.center,
@@ -85,8 +73,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
                 colour: kPrimaryColor,
                 onPressed: () async {
                   try {
-                    final user =
-                        await _auth.sendPasswordResetEmail(email: email);
+                    await _auth.sendPasswordResetEmail(email: email);
                     displayToastMessage(
                       "congratulation your successfully Sign In",
                       context,

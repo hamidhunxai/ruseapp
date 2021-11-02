@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/screens/signIn.dart';
 
+import 'components/logo.dart';
+
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
   static String id = "SplashScreen";
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -33,10 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         Column(
           children: [
-            Expanded(
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: 200.0,
+            Padding(
+              padding: const EdgeInsets.only(top: 80.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Logo(),
+                ],
               ),
             ),
             Expanded(

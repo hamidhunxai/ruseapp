@@ -74,6 +74,7 @@ class _FrontScreenState extends State<FrontScreen> {
     });
   }
 
+  // ignore: non_constant_identifier_names
   LoggedInUI(LoginController model) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

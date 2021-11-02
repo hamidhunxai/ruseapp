@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:ruse/components/RoundedButton.dart';
-import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
+import 'package:ruse/components/logo.dart';
 import 'package:ruse/components/progressDialog.dart';
 import 'package:ruse/controllers/login_controller.dart';
 import 'package:ruse/controllers/main_controller.dart';
@@ -25,18 +25,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> with TickerProviderStateMixin {
-  final _auth = FirebaseAuth.instance;
-
-  late final AnimationController controller = AnimationController(
-    duration: const Duration(seconds: 10),
-    vsync: this,
-  )..repeat();
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +34,10 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AnimatedRuse(controller: controller),
             Box(),
             Column(
               children: [
+                Logo(),
                 Text(
                   'SIGN IN',
                   textAlign: TextAlign.center,
@@ -176,6 +164,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
     });
   }
 
+  // ignore: non_constant_identifier_names
   LoginControllers(BuildContext context) {
     return Expanded(
       child: Row(
