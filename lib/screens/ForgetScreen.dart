@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:ruse/controllers/main_controller.dart';
+import 'package:ruse/screens/signUp.dart';
 
 class ForgetPassword extends StatefulWidget {
   static String id = "ForgetPassword";
@@ -13,10 +17,18 @@ class ForgetPassword extends StatefulWidget {
   _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
+class _ForgetPasswordState extends State<ForgetPassword>
+    with TickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
-
-  late String email;
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 10),
+    vsync: this,
+  )..repeat();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +39,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 100.0,
-              child: Image.asset('assets/images/logo.png'),
-            ),
+            AnimatedRuse(controller: _controller),
             Box(),
             Column(
               children: [
@@ -72,13 +81,34 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             Box(),
             Box(),
             RoundedButton(
-              title: 'Send Request',
-              colour: kPrimaryColor,
-              onPressed: () {
-                _auth.sendPasswordResetEmail(email: email);
-                Navigator.of(context).pop();
-              },
-            ),
+                title: 'Send Request',
+                colour: kPrimaryColor,
+                onPressed: () async {
+                  try {
+                    final user =
+                        await _auth.sendPasswordResetEmail(email: email);
+                    displayToastMessage(
+                      "congratulation your successfully Sign In",
+                      context,
+                    );
+                    {
+                      Navigator.of(context).pop();
+                    }
+                    // ignore: unnecessary_null_comparison
+
+                  } catch (e) {
+                    if (!email.contains("@")) {
+                      displayToastMessage(
+                        "Please Enter Valid Email",
+                        context,
+                      );
+                    }
+
+                    displayToastMessage(
+                        " No Record for this user Please Create New Account",
+                        context);
+                  }
+                }),
           ],
         ),
       ),

@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
+import 'package:ruse/components/progressDialog.dart';
 import 'package:ruse/controllers/login_controller.dart';
+import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/ForgetScreen.dart';
+
 import 'package:ruse/screens/FrontScreen.dart';
 import 'package:ruse/screens/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+final _auth = FirebaseAuth.instance;
 
 class SignIn extends StatefulWidget {
   static String id = "SignIn";
@@ -17,11 +24,19 @@ class SignIn extends StatefulWidget {
   _SignInState createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInState extends State<SignIn> with TickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
 
-  late String email;
-  late String password;
+  late final AnimationController controller = AnimationController(
+    duration: const Duration(seconds: 10),
+    vsync: this,
+  )..repeat();
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +46,7 @@ class _SignInState extends State<SignIn> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 100.0,
-              child: Image.asset('assets/images/logo.png'),
-            ),
+            AnimatedRuse(controller: controller),
             Box(),
             Column(
               children: [
@@ -96,21 +108,18 @@ class _SignInState extends State<SignIn> {
             ),
             Box(),
             RoundedButton(
-              title: 'Login',
-              colour: kPrimaryColor,
-              onPressed: () async {
-                try {
-                  final user = await _auth.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  // ignore: unnecessary_null_comparison
-                  if (user != null) {
-                    Navigator.pushNamed(context, FrontScreen.id);
+                title: 'Login',
+                colour: kPrimaryColor,
+                onPressed: () {
+                  if (!email.contains("@")) {
+                    displayToastMessage("email address is Valid", context);
+                  } else if (password.length < 6) {
+                    displayToastMessage(
+                        "password is mandatory upto 6 digits", context);
+                  } else {
+                    loginAndAuthenticateUser(context);
                   }
-                } catch (e) {
-                  print(e);
-                }
-              },
-            ),
+                }),
             SizedBox(
               height: 30.0,
             ),
@@ -206,5 +215,41 @@ class _SignInState extends State<SignIn> {
         ],
       ),
     );
+  }
+}
+
+void loginAndAuthenticateUser(BuildContext context) async {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ProgressDialog(
+          message: "Authenticating Please Wait",
+        );
+      });
+
+  try {
+    final user = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    displayToastMessage(
+      "congratulation your successfully Sign In",
+      context,
+    );
+    // ignore: unnecessary_null_comparison
+    if (user != null) {
+      Navigator.pushNamed(context, FrontScreen.id);
+    }
+  } catch (e) {
+    if (!email.contains("@")) {
+      displayToastMessage(
+        "Please Enter Valid Email",
+        context,
+      );
+    } else if (password.length < 6) {
+      displayToastMessage("password must be at least 6 character", context);
+    } else {
+      displayToastMessage(
+          " No Record for this user Please Create New Account", context);
+    }
   }
 }

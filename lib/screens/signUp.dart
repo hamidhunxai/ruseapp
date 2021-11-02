@@ -1,11 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/animatedR.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
+import 'package:ruse/components/progressDialog.dart';
+import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/FrontScreen.dart';
 import 'package:ruse/screens/signIn.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+final _auth = FirebaseAuth.instance;
 
 class SignUp extends StatefulWidget {
   static String id = "SignUp";
@@ -14,13 +20,18 @@ class SignUp extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
-  final _auth = FirebaseAuth.instance;
+class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 10),
+    vsync: this,
+  )..repeat();
 
-  late String name;
-  late String phone;
-  late String email;
-  late String password;
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +40,7 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
         child: Column(
           children: [
-            Expanded(
-              child: Container(
-                height: 50.0,
-                child: Image.asset('assets/images/logo.png'),
-              ),
-            ),
+            AnimatedRuse(controller: _controller),
             Box(),
             Expanded(
               child: Column(
@@ -106,16 +112,14 @@ class _SignUpState extends State<SignUp> {
             RoundedButton(
               title: 'Register',
               colour: kPrimaryColor,
-              onPressed: () async {
-                try {
-                  final newUser = await _auth.createUserWithEmailAndPassword(
-                      email: email, password: password);
-                  // ignore: unnecessary_null_comparison
-                  if (newUser != null) {
-                    Navigator.pushNamed(context, FrontScreen.id);
-                  }
-                } catch (e) {
-                  print(e);
+              onPressed: () {
+                if (!email.contains("@")) {
+                  displayToastMessage("email address is Valid", context);
+                } else if (password.length < 6) {
+                  displayToastMessage(
+                      "password is mandatory upto 6 digits", context);
+                } else {
+                  signUpAndAuthenticateUser(context);
                 }
               },
             ),
@@ -136,4 +140,45 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+}
+
+void signUpAndAuthenticateUser(BuildContext context) async {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ProgressDialog(
+          message: "Authenticating Please Wait",
+        );
+      });
+
+  try {
+    final newUser = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    displayToastMessage(
+      "congratulation your account has been created",
+      context,
+    );
+    // ignore: unnecessary_null_comparison
+    if (newUser != null) {
+      Navigator.pushNamed(context, FrontScreen.id);
+    }
+  } catch (e) {
+    if (!email.contains("@")) {
+      displayToastMessage(
+        "email address is Not Valid Must Contain @",
+        context,
+      );
+    } else if (password.length < 6) {
+      displayToastMessage("password must be at least 6 character", context);
+    } else {
+      //error occured
+      Navigator.pop(context);
+      displayToastMessage("User Exist or Error", context);
+    }
+  }
+}
+
+displayToastMessage(String message, BuildContext context) {
+  Fluttertoast.showToast(msg: message);
 }
