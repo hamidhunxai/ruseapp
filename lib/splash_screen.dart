@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruse/components/constants.dart';
-import 'package:ruse/screens/signIn.dart';
+import 'package:ruse/screens/sign_in.dart';
 
 import 'components/logo.dart';
 

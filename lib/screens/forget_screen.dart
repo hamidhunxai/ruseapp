@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/rounded_button.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
 import 'package:ruse/controllers/main_controller.dart';
-import 'package:ruse/screens/signUp.dart';
+import 'package:ruse/screens/sign_up.dart';
 
 class ForgetPassword extends StatefulWidget {
   ForgetPassword({Key? key}) : super(key: key);

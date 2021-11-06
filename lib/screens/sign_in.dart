@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/rounded_button.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
-import 'package:ruse/components/progressDialog.dart';
+import 'package:ruse/components/progress_dialog.dart';
 import 'package:ruse/controllers/login_controller.dart';
 import 'package:ruse/controllers/main_controller.dart';
-import 'package:ruse/screens/ForgetScreen.dart';
+import 'package:ruse/screens/forget_screen.dart';
 
-import 'package:ruse/screens/FrontScreen.dart';
-import 'package:ruse/screens/signUp.dart';
+import 'package:ruse/screens/main_screen.dart';
+import 'package:ruse/screens/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _auth = FirebaseAuth.instance;
@@ -153,7 +153,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
           child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
-                  context, FrontScreen.id, (route) => false);
+                  context, MainScreen.id, (route) => false);
             },
             child: Text("continue"),
           ),
@@ -178,7 +178,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                     await Provider.of<LoginController>(context, listen: false)
                         .googleLogin();
                 if (guser != null) {
-                  Navigator.pushNamed(context, FrontScreen.id);
+                  Navigator.pushNamed(context, MainScreen.id);
                 }
               } catch (e) {
                 print(e);
@@ -226,7 +226,7 @@ void loginAndAuthenticateUser(BuildContext context) async {
     );
     // ignore: unnecessary_null_comparison
     if (user != null) {
-      Navigator.pushNamed(context, FrontScreen.id);
+      Navigator.pushNamed(context, MainScreen.id);
     }
   } catch (e) {
     if (!email.contains("@")) {

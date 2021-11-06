@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/controllers/login_controller.dart';
-import 'package:ruse/screens/ForgetScreen.dart';
-import 'package:ruse/screens/FrontScreen.dart';
-import 'package:ruse/screens/signIn.dart';
-import 'package:ruse/screens/signUp.dart';
-import 'splashScreen.dart';
+import 'package:ruse/screens/forget_screen.dart';
+import 'package:ruse/screens/main_screen.dart';
+import 'package:ruse/screens/sign_in.dart';
+import 'package:ruse/screens/sign_up.dart';
+import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -32,13 +32,13 @@ class Ruse extends StatelessWidget {
               ColorScheme.fromSwatch().copyWith(secondary: kSecondaryColor),
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: SplashScreen.id,
+        initialRoute: MainScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           SignIn.id: (context) => SignIn(),
           SignUp.id: (context) => SignUp(),
           ForgetPassword.id: (context) => ForgetPassword(),
-          FrontScreen.id: (context) => FrontScreen(),
+          MainScreen.id: (context) => MainScreen(),
         },
       ),
     );

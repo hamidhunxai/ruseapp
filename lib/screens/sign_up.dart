@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ruse/components/RoundedButton.dart';
+import 'package:ruse/components/rounded_button.dart';
 import 'package:ruse/components/box.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
-import 'package:ruse/components/progressDialog.dart';
+import 'package:ruse/components/progress_dialog.dart';
 import 'package:ruse/controllers/main_controller.dart';
-import 'package:ruse/screens/FrontScreen.dart';
-import 'package:ruse/screens/signIn.dart';
+import 'package:ruse/screens/main_screen.dart';
+import 'package:ruse/screens/sign_in.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -150,7 +150,7 @@ void signUpAndAuthenticateUser(BuildContext context) async {
     );
     // ignore: unnecessary_null_comparison
     if (newUser != null) {
-      Navigator.pushNamed(context, FrontScreen.id);
+      Navigator.pushNamed(context, MainScreen.id);
     }
   } catch (e) {
     if (!email.contains("@")) {
