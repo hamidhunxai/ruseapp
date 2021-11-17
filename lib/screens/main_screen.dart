@@ -10,6 +10,10 @@ import 'package:ruse/screens/tabs/home_page.dart';
 import 'package:ruse/screens/tabs/profile.dart';
 import 'package:ruse/screens/tabs/templates.dart';
 
+final user = FirebaseAuth.instance.currentUser;
+final _auth = FirebaseAuth.instance;
+late User loggedInUser;
+
 class MainScreen extends StatefulWidget {
   static String id = "MainScreen";
   @override
@@ -20,9 +24,13 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   int selectedIndex = 0;
-  final user = FirebaseAuth.instance.currentUser;
-  final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
+
+  @override
+  void initState() {
+    getCurrentUser();
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+  }
 
   void onItemClicked(int index) {
     setState(() {
@@ -31,11 +39,16 @@ class _MainScreenState extends State<MainScreen>
     });
   }
 
-  @override
-  void initState() {
-    getCurrentUser();
-    super.initState();
-    tabController = TabController(length: 4, vsync: this);
+  void getCurrentUser() async {
+    try {
+      // ignore: await_only_futures
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -45,24 +58,12 @@ class _MainScreenState extends State<MainScreen>
     tabController.dispose();
   }
 
-  void getCurrentUser() async {
-    try {
-      // ignore: await_only_futures
-      final user = await _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -90,11 +91,6 @@ class _MainScreenState extends State<MainScreen>
           Profile(),
         ],
       ),
-      floatingActionButton: ActionChip(
-        avatar: const Icon(Icons.logout),
-        onPressed: () {},
-        label: Text("logout"),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -103,7 +99,7 @@ class _MainScreenState extends State<MainScreen>
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.broken_image_sharp),
-            label: "Template",
+            label: "Objects",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.drafts_rounded),

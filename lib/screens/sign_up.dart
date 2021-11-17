@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ruse/components/rounded_button.dart';
-import 'package:ruse/components/box.dart';
+
+import 'package:ruse/components/boxAndButtons.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
 import 'package:ruse/components/progress_dialog.dart';
@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
         child: Column(
           children: [
-            Box(),
+            HeightBox25(),
             Expanded(
               child: Column(
                 children: [
@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                 hintText: 'Enter your Name',
               ),
             ),
-            Box(),
+            HeightBox25(),
             TextField(
               style: TextStyle(color: kTextColor),
               keyboardType: TextInputType.phone,
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                 hintText: 'Enter your phone Number',
               ),
             ),
-            Box(),
+            HeightBox25(),
             TextField(
               onChanged: (value) {
                 email = value;
@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                 hintText: 'Enter your email',
               ),
             ),
-            Box(),
+            HeightBox25(),
             TextField(
               style: TextStyle(color: kTextColor),
               onChanged: (value) {
@@ -97,7 +97,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                 hintText: 'Enter your Password',
               ),
             ),
-            Box(),
+            HeightBox25(),
             RoundedButton(
               title: 'Register',
               colour: kPrimaryColor,

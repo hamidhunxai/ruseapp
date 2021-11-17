@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'package:ruse/components/rounded_button.dart';
-import 'package:ruse/components/box.dart';
+import 'package:ruse/components/boxAndButtons.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
 import 'package:ruse/components/progress_dialog.dart';
 import 'package:ruse/controllers/login_controller.dart';
 import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/forget_screen.dart';
-
 import 'package:ruse/screens/main_screen.dart';
 import 'package:ruse/screens/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,117 +26,119 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondaryColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Box(),
-            Column(
-              children: [
-                Logo(),
-                Text(
-                  'SIGN IN',
-                  textAlign: TextAlign.center,
-                  style: kTextStyle,
-                ),
-                Container(
-                  width: 52,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                    color: kPrimaryColor,
-                  ),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-
-                // Figma Flutter Generator TextWidget - TEXT
-              ],
-            ),
-            TextField(
-              onChanged: (value) {
-                email = value;
-              },
-              style: TextStyle(color: kTextColor),
-              keyboardType: TextInputType.emailAddress,
-              decoration: kTextFieldDecoration.copyWith(
-                hintText: 'Enter your email',
-              ),
-            ),
-            Box(),
-            TextField(
-              style: TextStyle(color: kTextColor),
-              onChanged: (value) {
-                password = value;
-              },
-              obscureText: true,
-              decoration: kTextFieldDecoration.copyWith(
-                hintText: 'Enter your Password',
-              ),
-            ),
-            TextButton(
-              style: ButtonStyle(alignment: Alignment.topRight),
-              child: Text(
-                'FORGOT PASSWORD ?',
-                style: kTextStyle,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, ForgetPassword.id);
-              },
-            ),
-            Box(),
-            RoundedButton(
-                title: 'Login',
-                colour: kPrimaryColor,
-                onPressed: () {
-                  if (!email.contains("@")) {
-                    displayToastMessage("email address is Valid", context);
-                  } else if (password.length < 6) {
-                    displayToastMessage(
-                        "password is mandatory upto 6 digits", context);
-                  } else {
-                    loginAndAuthenticateUser(context);
-                  }
-                }),
-            SizedBox(
-              height: 30.0,
-            ),
-            Text(
-              'OR SIGN IN WITH',
-              style: kTextStyle.copyWith(fontSize: 20.0),
-              textAlign: TextAlign.center,
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              HeightBox25(),
+              Column(
                 children: [
-                  loginUI(),
+                  Logo(),
+                  Text(
+                    'SIGN IN',
+                    textAlign: TextAlign.center,
+                    style: kTextStyle,
+                  ),
+                  Container(
+                    width: 52,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+
+                  // Figma Flutter Generator TextWidget - TEXT
                 ],
               ),
-            ),
-            Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: TextButton(
-                  child: Text(
-                    'DON\'T HAVE AN ACCOUNT',
-                    style: kTextStyle.copyWith(fontSize: 20.0),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, SignUp.id);
-                  },
+              TextField(
+                onChanged: (value) {
+                  email = value;
+                },
+                style: TextStyle(color: kTextColor),
+                keyboardType: TextInputType.emailAddress,
+                decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Enter your email',
                 ),
               ),
-            ),
-          ],
+              HeightBox25(),
+              TextField(
+                style: TextStyle(color: kTextColor),
+                onChanged: (value) {
+                  password = value;
+                },
+                obscureText: true,
+                decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Enter your Password',
+                ),
+              ),
+              TextButton(
+                style: ButtonStyle(alignment: Alignment.topRight),
+                child: Text(
+                  'FORGOT PASSWORD ?',
+                  style: kTextStyle,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, ForgetPassword.id);
+                },
+              ),
+              HeightBox25(),
+              RoundedButton(
+                  title: 'Login',
+                  colour: kPrimaryColor,
+                  onPressed: () {
+                    if (!email.contains("@")) {
+                      displayToastMessage("email address is Valid", context);
+                    } else if (password.length < 6) {
+                      displayToastMessage(
+                          "password is mandatory upto 6 digits", context);
+                    } else {
+                      loginAndAuthenticateUser(context);
+                    }
+                  }),
+              SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                'OR SIGN IN WITH',
+                style: kTextStyle.copyWith(fontSize: 20.0),
+                textAlign: TextAlign.center,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    loginUI(),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: TextButton(
+                    child: Text(
+                      'DON\'T HAVE AN ACCOUNT',
+                      style: kTextStyle.copyWith(fontSize: 20.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignUp.id);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

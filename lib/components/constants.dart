@@ -37,3 +37,29 @@ const kTextStyle = TextStyle(
   fontWeight: FontWeight.normal,
   height: 1,
 );
+final List images = [
+  'assets/images/t.png',
+  'assets/images/logo.png',
+];
+
+class IconsM {
+  IconsM._();
+
+  static const _kFontFam = 'Icons';
+  static const String? _kFontPkg = null;
+
+  static const IconData scissors =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData layers_alt =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData photo_size_select_large =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData adult =
+      IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData picture_collage_svgrepo_com =
+      IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData spider_face =
+      IconData(0xeaaf, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData eraser =
+      IconData(0xf12d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}

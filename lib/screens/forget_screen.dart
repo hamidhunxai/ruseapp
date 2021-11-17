@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ruse/components/rounded_button.dart';
-import 'package:ruse/components/box.dart';
+
+import 'package:ruse/components/boxAndButtons.dart';
 import 'package:ruse/components/constants.dart';
 import 'package:ruse/components/logo.dart';
 import 'package:ruse/controllers/main_controller.dart';
@@ -27,7 +27,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Box(),
+            HeightBox25(),
             Column(
               children: [
                 Logo(),
@@ -66,8 +66,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 hintText: 'Enter your email',
               ),
             ),
-            Box(),
-            Box(),
+            HeightBox25(),
+            HeightBox25(),
             RoundedButton(
                 title: 'Send Request',
                 colour: kPrimaryColor,

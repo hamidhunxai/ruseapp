@@ -6,6 +6,7 @@ import 'package:ruse/screens/forget_screen.dart';
 import 'package:ruse/screens/main_screen.dart';
 import 'package:ruse/screens/sign_in.dart';
 import 'package:ruse/screens/sign_up.dart';
+
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,7 +33,7 @@ class Ruse extends StatelessWidget {
               ColorScheme.fromSwatch().copyWith(secondary: kSecondaryColor),
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: MainScreen.id,
+        initialRoute: SplashScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           SignIn.id: (context) => SignIn(),

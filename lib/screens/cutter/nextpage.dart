@@ -8,11 +8,6 @@ class NextPage extends StatefulWidget {
 class _NextPageState extends State<NextPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Image.asset(
-        "asset/images/logo.png",
-        width: double.infinity,
-      ),
-    );
+    return Scaffold();
   }
 }
