@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:photofilters/filters/filters.dart';
+import 'package:ruse/bgremover/edit_screen.dart';
+import 'package:ruse/bgremover/filters.dart';
+import 'package:ruse/bgremover/final_design.dart';
+
 import 'package:ruse/components/boxAndButtons.dart';
 import 'package:ruse/components/constants.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:ruse/components/sliders.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,12 +17,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<T> map<T>(List list, Function handler) {
-    List<T> result = [];
-    for (var i = 0; i < list.length; i++) {
-      result.add(handler(i, list[i]));
+  File? _image;
+  final picker = ImagePicker();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+      Future.delayed(Duration(seconds: 0)).then(
+        (value) => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => EditPhotoScreen(
+              arguments: [_image],
+            ),
+          ),
+        ),
+      );
     }
-    return result;
+  }
+
+  Future getImageFinal() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+      Future.delayed(Duration(seconds: 0)).then(
+        (value) => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => PhotoEditor(
+              arguments: [_image],
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future getImageFilter() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -29,31 +82,34 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Sliders(),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                  ),
-                  child: buildCarouselSlider(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      TextButtonHomepage(
-                        mainTitle: 'Object\n',
-                        mainIcon: IconsM.scissors,
-                        onPressed: () {},
-                        secondTitle: 'Remover Bulk',
-                        edgeInsetss: EdgeInsets.all(40.0),
+                      Expanded(
+                        child: TextButtonHomepage(
+                          mainTitle: 'Object\n',
+                          mainIcon: IconsM.scissors,
+                          onPressed: () async {
+                            await getImage();
+                          },
+                          secondTitle: 'Remover Bulk',
+                          edgeInsetss: EdgeInsets.all(20.0),
+                        ),
                       ),
-                      TextButtonHomepage(
-                        mainTitle: ' Picture\n ',
-                        mainIcon: IconsM.eraser,
-                        onPressed: () {},
-                        secondTitle: 'Super Impose',
-                        edgeInsetss: EdgeInsets.all(40.0),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Expanded(
+                        child: TextButtonHomepage(
+                          mainTitle: ' Picture\n ',
+                          mainIcon: IconsM.eraser,
+                          onPressed: () {},
+                          secondTitle: 'Super Impose',
+                          edgeInsetss: EdgeInsets.all(20.0),
+                        ),
                       ),
                     ],
                   ),
@@ -62,11 +118,13 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0, right: 30.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     children: [
                       ButtonSingle(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await getImageFinal();
+                        },
                         mainIcon: IconsM.spider_face,
                         title: 'Identify Objects',
                         colour: kTextColor,
@@ -75,9 +133,11 @@ class _HomePageState extends State<HomePage> {
                         width: 10.0,
                       ),
                       ButtonSingle(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, FilterRuse.id);
+                        },
                         mainIcon: IconsM.photo_size_select_large,
-                        title: 'Picture Editing',
+                        title: 'Object Editing',
                         colour: kTextColor,
                       ),
                       SizedBox(
@@ -85,8 +145,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ButtonSingle(
                         onPressed: () {},
-                        mainIcon: IconsM.eraser,
-                        title: 'Object Manipulator',
+                        mainIcon: Icons.filter_7_sharp,
+                        title: 'Filters',
                         colour: kTextColor,
                       ),
                       SizedBox(

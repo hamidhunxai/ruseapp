@@ -46,7 +46,7 @@ class IconsM {
   IconsM._();
 
   static const _kFontFam = 'Icons';
-  static const String? _kFontPkg = null;
+  static const String _kFontPkg = "jhk";
 
   static const IconData scissors =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

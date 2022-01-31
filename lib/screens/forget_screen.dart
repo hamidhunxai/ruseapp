@@ -9,7 +9,6 @@ import 'package:ruse/controllers/main_controller.dart';
 import 'package:ruse/screens/sign_up.dart';
 
 class ForgetPassword extends StatefulWidget {
-  ForgetPassword({Key? key}) : super(key: key);
   static String id = "ForgetPassword";
 
   @override

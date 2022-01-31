@@ -151,10 +151,10 @@ class _MainScreenState extends State<MainScreen>
       children: [
         CircleAvatar(
             backgroundImage:
-                Image.network(model.userDetails!.photoURL ?? "").image,
+                Image.network(model.userDetails.photoURL ?? "").image,
             radius: 50),
-        Text(model.userDetails!.displayName ?? ""),
-        Text(model.userDetails!.email ?? ""),
+        Text(model.userDetails.displayName),
+        Text(model.userDetails.email),
 
         //logout
       ],

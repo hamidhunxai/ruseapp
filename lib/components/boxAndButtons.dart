@@ -270,10 +270,6 @@ class ProfileButtons extends StatelessWidget {
 
 //Profile Button
 class ProfileButton extends StatelessWidget {
-  const ProfileButton({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(

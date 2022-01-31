@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruse/components/constants.dart';
-import 'package:ruse/screens/sign_in.dart';
+import 'package:ruse/screens/main_screen.dart';
 
 import 'components/logo.dart';
 
@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 2), () => Navigator.pushNamed(context, SignIn.id));
+    Timer(Duration(seconds: 2),
+        () => Navigator.pushNamed(context, MainScreen.id));
   }
 
   @override

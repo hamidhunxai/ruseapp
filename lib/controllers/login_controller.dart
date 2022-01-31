@@ -7,20 +7,20 @@ import 'package:ruse/model/user_details.dart';
 class LoginController with ChangeNotifier {
   //object
   final _googleSignIn = GoogleSignIn();
-  GoogleSignInAccount? googleSignInAccount;
-  UserDetails? userDetails;
+  late GoogleSignInAccount googleSignInAccount;
+  late UserDetails userDetails;
 
   //function for google login
 
   googleLogin() async {
-    googleSignInAccount = await _googleSignIn.signIn();
+    googleSignInAccount = (await _googleSignIn.signIn())!;
 
     //insert values to our user details model
 
     userDetails = UserDetails(
-      displayName: googleSignInAccount!.displayName,
-      email: googleSignInAccount!.email,
-      photoURL: googleSignInAccount!.photoUrl,
+      displayName: googleSignInAccount.displayName,
+      email: googleSignInAccount.email,
+      photoURL: googleSignInAccount.photoUrl,
     );
     //call
     notifyListeners();
@@ -50,9 +50,8 @@ class LoginController with ChangeNotifier {
   }
 
   logout() async {
-    googleSignInAccount = await _googleSignIn.signOut();
+    googleSignInAccount = (await _googleSignIn.signOut())!;
     await FacebookAuth.i.logOut();
-    userDetails = null;
     notifyListeners();
   }
 }

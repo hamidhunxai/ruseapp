@@ -1,15 +1,12 @@
+// @dart=2.9
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
-import 'package:ruse/components/saveScreen.dart';
-import 'package:image_editor/image_editor.dart' hide ImageSource;
 
 class EditPhotoScreen extends StatefulWidget {
   final List arguments;
-  EditPhotoScreen({required this.arguments});
+  EditPhotoScreen({this.arguments});
   @override
   _EditPhotoScreenState createState() => _EditPhotoScreenState();
 }
@@ -72,7 +69,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
     return m;
   }
 
-  late File image;
+  File image;
   @override
   void initState() {
     super.initState();
@@ -99,12 +96,12 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
                 });
               },
             ),
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: () async {
-                await crop();
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(Icons.check),
+            //   onPressed: () async {
+            //     await crop();
+            //   },
+            // ),
           ]),
       body: SingleChildScrollView(
         child: Container(
@@ -169,6 +166,13 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
           extendedImageEditorKey: editorKey,
           mode: ExtendedImageMode.editor,
           fit: BoxFit.contain,
+          initEditorConfigHandler: (ExtendedImageState state) {
+            return EditorConfig(
+              maxScale: 8.0,
+              cropRectPadding: const EdgeInsets.all(20.0),
+              hitTestSize: 20.0,
+            );
+          },
         ),
       ),
     );
@@ -183,21 +187,36 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
             Icons.flip,
             color: Colors.white,
           ),
-          label: 'Flip',
+          title: Text(
+            'Flip',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_left,
             color: Colors.white,
           ),
-          label: 'Rotate left',
+          title: Text(
+            'Rotate left',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_right,
             color: Colors.white,
           ),
-          label: 'Rotate right',
+          title: Text(
+            'Rotate right',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       ],
       onTap: (int index) {
@@ -219,61 +238,60 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
     );
   }
 
-  Future<void> crop([bool test = false]) async {
-    final ExtendedImageEditorState? state = editorKey.currentState;
-    final Rect? rect = state!.getCropRect();
-    final EditActionDetails? action = state.editAction;
-    final double radian = action!.rotateAngle;
-
-    final bool flipHorizontal = action.flipY;
-    final bool flipVertical = action.flipX;
-    final Uint8List img = state.rawImageData;
-
-    final ImageEditorOption option = ImageEditorOption();
-
-    option.addOption(ClipOption.fromRect(rect!));
-    option.addOption(
-        FlipOption(horizontal: flipHorizontal, vertical: flipVertical));
-    if (action.hasRotateAngle) {
-      option.addOption(RotateOption(radian.toInt()));
-    }
-
-    option.addOption(ColorOption.saturation(sat));
-    option.addOption(ColorOption.brightness(bright + 1));
-    option.addOption(ColorOption.contrast(con));
-
-    option.outputFormat = const OutputFormat.jpeg(100);
-
-    print(const JsonEncoder.withIndent('  ').convert(option.toJson()));
-
-    final DateTime start = DateTime.now();
-    final Uint8List? result = await ImageEditor.editImage(
-      image: img,
-      imageEditorOption: option,
-    );
-
-    print('result.length = ${result!.length}');
-
-    final Duration diff = DateTime.now().difference(start);
-    image.writeAsBytesSync(result);
-    print('image_editor time : $diff');
-    Future.delayed(Duration(seconds: 0)).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        CupertinoPageRoute(
-            builder: (context) => SaveImageScreen(
-                  arguments: [image],
-                )),
-      ),
-    );
-  }
+  // Future<void> crop([bool test = false]) async {
+  //   final ExtendedImageEditorState state = editorKey.currentState;
+  //   final Rect rect = state.getCropRect();
+  //   final EditActionDetails action = state.editAction;
+  //   final double radian = action.rotateAngle;
+  //
+  //   final bool flipHorizontal = action.flipY;
+  //   final bool flipVertical = action.flipX;
+  //   final Uint8List img = state.rawImageData;
+  //
+  //   final ImageEditorOption option = ImageEditorOption();
+  //
+  //   option.addOption(ClipOption.fromRect(rect));
+  //   option.addOption(
+  //       FlipOption(horizontal: flipHorizontal, vertical: flipVertical));
+  //   if (action.hasRotateAngle) {
+  //     option.addOption(RotateOption(radian.toInt()));
+  //   }
+  //
+  //   option.addOption(ColorOption.saturation(sat));
+  //   option.addOption(ColorOption.brightness(bright + 1));
+  //   option.addOption(ColorOption.contrast(con));
+  //
+  //   option.outputFormat = const OutputFormat.jpeg(100);
+  //
+  //   print(const JsonEncoder.withIndent('  ').convert(option.toJson()));
+  //
+  //   final DateTime start = DateTime.now();
+  //   final Uint8List result = await ImageEditor.editImage(
+  //     image: img,
+  //     imageEditorOption: option,
+  //   );
+  //
+  //   print('result.length = ${result.length}');
+  //
+  //   final Duration diff = DateTime.now().difference(start);
+  //   image.writeAsBytesSync(result);
+  //   print('image_editor time : $diff');
+  //   Future.delayed(Duration(seconds: 0)).then(
+  //     (value) => Navigator.pushReplacement(
+  //       context,
+  //       CupertinoPageRoute(
+  //           builder: (context) => ()
+  //               ),
+  //     ),
+  //   );
+  // }
 
   void flip() {
-    editorKey.currentState!.flip();
+    editorKey.currentState.flip();
   }
 
   void rotate(bool right) {
-    editorKey.currentState!.rotate(right: right);
+    editorKey.currentState.rotate(right: right);
   }
 
   Widget _buildSat() {
@@ -288,11 +306,11 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
           children: <Widget>[
             Icon(
               Icons.brush,
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             Text(
               "Saturation",
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             )
           ],
         ),
@@ -332,11 +350,11 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
           children: <Widget>[
             Icon(
               Icons.brightness_4,
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             Text(
               "Brightness",
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             )
           ],
         ),
@@ -376,11 +394,11 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
           children: <Widget>[
             Icon(
               Icons.color_lens,
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             Text(
               "Contrast",
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             )
           ],
         ),

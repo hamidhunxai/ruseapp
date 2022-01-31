@@ -91,43 +91,60 @@ class Item4 extends StatelessWidget {
   }
 }
 
-List cardList = [Item1(), Item2(), Item3(), Item4()];
+class Sliders extends StatefulWidget {
+  const Sliders({Key? key}) : super(key: key);
 
-// ignore: unused_element
-int _currentIndex = 0;
-
-CarouselSlider buildCarouselSlider() {
-  return CarouselSlider(
-    options: CarouselOptions(
-      viewportFraction: 1,
-      height: 200.0,
-      autoPlay: true,
-      autoPlayInterval: Duration(seconds: 3),
-      autoPlayAnimationDuration: Duration(milliseconds: 800),
-      autoPlayCurve: Curves.fastOutSlowIn,
-      pauseAutoPlayOnTouch: true,
-      onPageChanged: (index, reason) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-    ),
-    items: cardList.map((card) {
-      return Builder(builder: (BuildContext context) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.30,
-            width: MediaQuery.of(context).size.width,
-            child: Card(
-              color: Colors.blueAccent,
-              child: card,
-            ),
-          ),
-        );
-      });
-    }).toList(),
-  );
+  @override
+  _SlidersState createState() => _SlidersState();
 }
 
-void setState(Null Function() param0) {}
+class _SlidersState extends State<Sliders> {
+  List cardList = [Item1(), Item2(), Item3(), Item4()];
+
+// ignore: unused_element
+  int _currentIndex = 0;
+
+  CarouselSlider buildCarouselSlider() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        viewportFraction: 1,
+        height: 200.0,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 3),
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        pauseAutoPlayOnTouch: true,
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+      items: cardList.map((card) {
+        return Builder(builder: (BuildContext context) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.30,
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                color: Colors.blueAccent,
+                child: card,
+              ),
+            ),
+          );
+        });
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(
+          left: 20.0,
+          right: 20.0,
+        ),
+        child: buildCarouselSlider());
+  }
+}

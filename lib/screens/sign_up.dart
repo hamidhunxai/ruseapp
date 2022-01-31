@@ -30,35 +30,33 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
         child: Column(
           children: [
             HeightBox25(),
-            Expanded(
-              child: Column(
-                children: [
-                  Logo(),
-                  Text(
-                    'SIGN UP',
-                    textAlign: TextAlign.center,
-                    style: kTextStyle,
-                  ),
-                  Container(
-                    width: 52,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                      color: kPrimaryColor,
+            Column(
+              children: [
+                Logo(),
+                Text(
+                  'SIGN UP',
+                  textAlign: TextAlign.center,
+                  style: kTextStyle,
+                ),
+                Container(
+                  width: 52,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
                     ),
+                    color: kPrimaryColor,
                   ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
 
-                  // Figma Flutter Generator TextWidget - TEXT
-                ],
-              ),
+                // Figma Flutter Generator TextWidget - TEXT
+              ],
             ),
             TextField(
               style: TextStyle(color: kTextColor),

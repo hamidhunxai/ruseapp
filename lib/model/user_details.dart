@@ -1,12 +1,12 @@
+// @dart=2.9
 class UserDetails {
-  String? displayName;
-  String? email;
-  String? photoURL;
+  String displayName;
+  String email;
+  String photoURL;
 
   //constructor
 
-  UserDetails(
-      {required this.displayName, required this.email, required this.photoURL});
+  UserDetails({this.displayName, this.email, this.photoURL});
 
   //we meed create map
 
