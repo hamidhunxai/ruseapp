@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>488350645508-c9k0bfhqmsrrg04ua8qvqch2ojale3oa.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.488350645508-c9k0bfhqmsrrg04ua8qvqch2ojale3oa</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>488350645508-ir904br2d6h5ljr97quvnmepoqilk4ci.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB7Fuh58C9Z-cQANdHVRwtF6V7l-qEbxfg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>488350645508</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ruseapp</string>
+	<key>PROJECT_ID</key>
+	<string>ruse-46f86</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ruse-46f86.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:488350645508:ios:b56e7b84b55f5de83b2451</string>
+</dict>
+</plist>
