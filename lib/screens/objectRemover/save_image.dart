@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
-import 'package:path/path.dart' as paath;
+
 import 'edit_screen.dart';
-import 'package:image/image.dart' as imageLib;
+
 
 void main() {
   runApp(MyApp());

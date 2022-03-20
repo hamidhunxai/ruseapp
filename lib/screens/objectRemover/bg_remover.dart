@@ -1,19 +1,14 @@
 // @dart=2.9
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/material.dart';
 
 //filters
-import 'package:ruse/bgremover/widget/filtered_image_list_widget.dart';
-import 'package:ruse/bgremover/widget/filtered_image_widget.dart';
 
 import 'package:photofilters/filters/filters.dart';
 import 'package:photofilters/filters/preset_filters.dart';
 import 'package:image/image.dart' as img;
-
-import 'filter_utils.dart';
-import 'dart:convert';
+import 'package:ruse/screens/objectRemover/widget/filtered_image_list_widget.dart';
+import 'package:ruse/screens/objectRemover/widget/filtered_image_widget.dart';
 
 class BGRemover extends StatefulWidget {
   const BGRemover({Key key}) : super(key: key);

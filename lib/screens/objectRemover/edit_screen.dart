@@ -1,19 +1,16 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:image_editor/image_editor.dart' hide ImageSource;
 import 'package:photofilters/filters/filters.dart';
 import 'package:photofilters/filters/preset_filters.dart';
-import 'package:ruse/bgremover/filters_save.dart';
-import 'package:ruse/bgremover/save.dart';
-import 'package:image/image.dart' as imageLib;
-import 'package:ruse/bgremover/widget/filters_list.dart';
 
-import 'main_filters.dart';
+import 'package:ruse/screens/components/constants.dart';
+import 'package:ruse/screens/objectRemover/save.dart';
+import 'package:ruse/screens/objectRemover/widget/filters_list.dart';
 
 class EditPhotoScreen extends StatefulWidget {
   final List arguments;
@@ -98,35 +95,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-          title: Text(
-            "RUSE Edit Object",
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.settings_backup_restore),
-              onPressed: () {
-                setState(() {
-                  sat = 1;
-                  bright = 0;
-                  con = 1;
-                });
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MainFilters(
-                              image: image!,
-                              globalKey: editorKey,
-                            )));
-              },
-            ),
-          ]),
+      appBar: buildAppBar,
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -221,36 +190,21 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
             Icons.flip,
             color: Colors.white,
           ),
-          title: Text(
-            'Flip',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Flip',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_left,
             color: Colors.white,
           ),
-          title: Text(
-            'Rotate left',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Rotate Left',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_right,
             color: Colors.white,
           ),
-          title: Text(
-            'Rotate right',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Rotate right',
         ),
       ],
       onTap: (int index) {
@@ -465,4 +419,26 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
   }
 
   Future filterR() async {}
+  AppBar get buildAppBar {
+    return AppBar(
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/R.gif',
+            fit: BoxFit.contain,
+            height: 42,
+          ),
+          Image.asset(
+            "assets/images/use.png",
+            height: 42,
+          ),
+          Container(padding: const EdgeInsets.all(8.0))
+        ],
+      ),
+      backgroundColor: kSecondaryColor,
+    );
+  }
 }

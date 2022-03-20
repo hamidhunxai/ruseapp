@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -7,8 +8,8 @@ import 'package:ruse/model/user_details.dart';
 class LoginController with ChangeNotifier {
   //object
   final _googleSignIn = GoogleSignIn();
-  late GoogleSignInAccount googleSignInAccount;
-  late UserDetails userDetails;
+  GoogleSignInAccount? googleSignInAccount;
+  UserDetails? userDetails;
 
   //function for google login
 
@@ -18,9 +19,9 @@ class LoginController with ChangeNotifier {
     //insert values to our user details model
 
     userDetails = UserDetails(
-      displayName: googleSignInAccount.displayName,
-      email: googleSignInAccount.email,
-      photoURL: googleSignInAccount.photoUrl,
+      displayName: googleSignInAccount!.displayName!,
+      email: googleSignInAccount!.email,
+      photoURL: googleSignInAccount!.photoUrl!,
     );
     //call
     notifyListeners();
@@ -47,6 +48,16 @@ class LoginController with ChangeNotifier {
       notifyListeners();
     }
     //logout
+  }
+
+  final _firebaseauth = FirebaseAuth.instance;
+
+  Future<String> getCurrentUID() async {
+    return (await _firebaseauth.currentUser!).uid;
+  }
+
+  Future getCurrent() async {
+    return (await _firebaseauth.currentUser!).uid;
   }
 
   logout() async {

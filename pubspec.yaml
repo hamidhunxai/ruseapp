@@ -15,10 +15,11 @@ dependencies:
   splash_screen_view: ^3.0.0
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.4
-  cloud_firestore: ^3.1.0
   provider: ^6.0.0
   google_sign_in: ^5.0.7
   flutter_facebook_auth: ^3.5.1
+  firebase_database: ^9.0.6
+  cloud_firestore: ^3.1.8
   fluttertoast: ^8.0.8
   flutter_native_splash: ^1.1.2
   share: ^2.0.4
@@ -36,10 +37,11 @@ dependencies:
   flutter_material_color_picker: ^1.1.0+2
   get: ^4.6.1
   image_save: ^5.0.0
-  photofilters: ^2.0.1
+  photofilters: ^3.0.1
   image_picker: ^0.7.4
-
-
+  image_editor_pro: ^1.1.8
+  get_it: ^4.0.1
+  firebase_storage: ^8.1.1
 
 
 
@@ -64,10 +66,10 @@ flutter:
     - assets/images/sliders/4.jpg
 
   fonts:
-  - family: Mukta
-    fonts:
-    - asset: assets/fonts/MuktaMalar-Regular.ttf
-  - family: Icons
-    fonts:
-      - asset: assets/fonts/Icons.ttf
+    - family: Mukta
+      fonts:
+        - asset: assets/fonts/MuktaMalar-Regular.ttf
+    - family: Icons
+      fonts:
+        - asset: assets/fonts/Icons.ttf
 

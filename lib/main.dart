@@ -1,19 +1,21 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:provider/provider.dart';
-import 'package:ruse/components/constants.dart';
 import 'package:ruse/controllers/login_controller.dart';
+import 'package:ruse/screens/objectRemover/filters.dart';
+import 'package:ruse/screens/objectRemover/final_design.dart';
+import 'package:ruse/screens/objectRemover/image_pro.dart';
+import 'package:ruse/screens/objectRemover/save_image.dart';
+import 'package:ruse/screens/components/constants.dart';
 
-import 'package:ruse/screens/forget_screen.dart';
-import 'package:ruse/screens/main_screen.dart';
-import 'package:ruse/screens/sign_in.dart';
-import 'package:ruse/screens/sign_up.dart';
+import 'package:ruse/screens/topScreens/forget_screen.dart';
+import 'package:ruse/screens/topScreens/main_screen.dart';
+import 'package:ruse/screens/profile/settings.dart';
+import 'package:ruse/screens/topScreens/sign_in.dart';
+import 'package:ruse/screens/topScreens/sign_up.dart';
 
-import 'bgremover/filters.dart';
-import 'bgremover/final_design.dart';
-import 'bgremover/save_image.dart';
+import 'package:firexcode/firexcode.dart';
 
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,6 +56,7 @@ class Ruse extends StatelessWidget {
           SignUp.id: (context) => SignUp(),
           ForgetPassword.id: (context) => ForgetPassword(),
           MainScreen.id: (context) => MainScreen(),
+          ProfileSettings.id: (context) => ProfileSettings(),
           // MyApp.id: (context) => MyApp(),
           // ImagePainterExample.id: (context) => ImagePainterExample(),
 
@@ -62,6 +65,7 @@ class Ruse extends StatelessWidget {
           PhotoEditor.id: (context) => PhotoEditor(
                 arguments: [],
               ),
+          ImagePro.id: (context) => ImagePro().xMaterialApp(),
         },
       ),
     );

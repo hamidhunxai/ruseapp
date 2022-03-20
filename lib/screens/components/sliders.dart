@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:ruse/components/constants.dart';
+import 'package:ruse/screens/objectRemover/image_pro.dart';
 import 'boxAndButtons.dart';
+import 'constants.dart';
 
 class Item1 extends StatelessWidget {
   @override
@@ -16,7 +17,9 @@ class Item1 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: SliderButtonText(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, ImagePro.id);
+          },
           title: 'Object Manipulator',
           colour: kSecondaryColor,
         ),
@@ -38,7 +41,9 @@ class Item2 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 70.0),
         child: SliderButtonText(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, ImagePro.id);
+          },
           title: 'Background Changer',
           colour: kSecondaryColor,
         ),
@@ -60,7 +65,9 @@ class Item3 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: SliderButtonText(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, ImagePro.id);
+          },
           title: 'Edit Your Image',
           colour: kSecondaryColor,
         ),
@@ -91,14 +98,14 @@ class Item4 extends StatelessWidget {
   }
 }
 
-class Sliders extends StatefulWidget {
-  const Sliders({Key? key}) : super(key: key);
+class Sliderz extends StatefulWidget {
+  const Sliderz({Key? key}) : super(key: key);
 
   @override
-  _SlidersState createState() => _SlidersState();
+  _SliderzState createState() => _SliderzState();
 }
 
-class _SlidersState extends State<Sliders> {
+class _SliderzState extends State<Sliderz> {
   List cardList = [Item1(), Item2(), Item3(), Item4()];
 
 // ignore: unused_element

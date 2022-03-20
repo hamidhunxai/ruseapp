@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const kPrimaryColor = const Color(0xff22A91B);
@@ -46,7 +45,7 @@ class IconsM {
   IconsM._();
 
   static const _kFontFam = 'Icons';
-  static const String _kFontPkg = "jhk";
+  static const String? _kFontPkg = null;
 
   static const IconData scissors =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'constants.dart';
 
@@ -269,7 +271,14 @@ class ProfileButtons extends StatelessWidget {
 }
 
 //Profile Button
+
 class ProfileButton extends StatelessWidget {
+  String? uid;
+
+  String? userName;
+  String? email;
+  String? phone;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -286,15 +295,39 @@ class ProfileButton extends StatelessWidget {
               color: Colors.black,
               size: 80.0,
             )),
-        Text(
-          'Please Login!',
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.black,
-          ),
-        ),
+        FutureBuilder(
+          future: _fetch(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done)
+              return Text("loading date.... Please wait");
+            return Text(
+              "$userName",
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.black,
+              ),
+            );
+          },
+        )
       ],
     );
+  }
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('user')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.get('userName');
+        email = ds.get('email');
+        phone = ds.get('phone');
+        print(userName);
+      }).catchError((e) {
+        print(e);
+      });
   }
 }
 

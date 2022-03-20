@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'dart:async';
 import 'dart:io';
 
@@ -7,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 import 'package:image_picker/image_picker.dart';
+import 'package:ruse/screens/components/constants.dart';
 
 void main() => runApp(new MaterialApp(home: FilterRuse()));
 
@@ -17,22 +17,22 @@ class FilterRuse extends StatefulWidget {
 }
 
 class _FilterRuseState extends State<FilterRuse> {
-  String fileName;
+  late String fileName;
   List<Filter> filters = presetFiltersList;
-  File imageFile;
+  File? imageFile;
   final picker = ImagePicker();
 
   Future getImage(context) async {
     var imageFile = await picker.getImage(source: ImageSource.gallery);
-    fileName = basename(imageFile.path);
+    fileName = basename(imageFile!.path);
     var image = imageLib.decodeImage(await imageFile.readAsBytes());
-    image = imageLib.copyResize(image, width: 600);
+    image = imageLib.copyResize(image!, width: 600);
     Map imagefile = await Navigator.push(
       context,
       new MaterialPageRoute(
         builder: (context) => new PhotoFilterSelector(
           title: Text("Photo Filter Example"),
-          image: image,
+          image: image!,
           filters: presetFiltersList,
           filename: fileName,
           loader: Center(child: CircularProgressIndicator()),
@@ -44,23 +44,21 @@ class _FilterRuseState extends State<FilterRuse> {
       setState(() {
         imageFile = imagefile['image_filtered'];
       });
-      print(imageFile.path);
+      print(imageFile?.path);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Photo Filter Example'),
-      ),
+      appBar: buildAppBar,
       body: Center(
         child: new Container(
           child: imageFile == null
               ? Center(
                   child: new Text('No image selected.'),
                 )
-              : Image.file(imageFile),
+              : Image.file(imageFile!),
         ),
       ),
       floatingActionButton: new FloatingActionButton(
@@ -68,6 +66,29 @@ class _FilterRuseState extends State<FilterRuse> {
         tooltip: 'Pick Image',
         child: new Icon(Icons.add_a_photo),
       ),
+    );
+  }
+
+  AppBar get buildAppBar {
+    return AppBar(
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/R.gif',
+            fit: BoxFit.contain,
+            height: 42,
+          ),
+          Image.asset(
+            "assets/images/use.png",
+            height: 42,
+          ),
+          Container(padding: const EdgeInsets.all(8.0))
+        ],
+      ),
+      backgroundColor: kSecondaryColor,
     );
   }
 }

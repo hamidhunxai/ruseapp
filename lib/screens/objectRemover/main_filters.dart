@@ -3,8 +3,8 @@ import 'dart:ui' as ui;
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ruse/bgremover/widget/filters_list.dart';
-import 'dart:io';
+import 'package:ruse/screens/objectRemover/widget/filters_list.dart';
+
 import 'filters_save.dart';
 
 class MainFilters extends StatelessWidget {

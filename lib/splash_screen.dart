@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:ruse/components/constants.dart';
-import 'package:ruse/screens/main_screen.dart';
 
-import 'components/logo.dart';
+import 'package:flutter/material.dart';
+import 'package:ruse/screens/components/constants.dart';
+import 'package:ruse/screens/components/logo.dart';
+import 'package:ruse/screens/topScreens/sign_up.dart';
 
 class SplashScreen extends StatefulWidget {
   static String id = "SplashScreen";
@@ -17,8 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 2),
-        () => Navigator.pushNamed(context, MainScreen.id));
+    Timer(Duration(seconds: 2), () => Navigator.pushNamed(context, SignUp.id));
   }
 
   @override

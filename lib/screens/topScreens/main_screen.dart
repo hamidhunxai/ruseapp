@@ -1,16 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:ruse/components/constants.dart';
 import 'package:ruse/controllers/login_controller.dart';
-import 'package:ruse/screens/sign_in.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ruse/screens/topScreens/sign_in.dart';
 import 'package:ruse/screens/tabs/draft_box.dart';
 import 'package:ruse/screens/tabs/home_page.dart';
 import 'package:ruse/screens/tabs/profile.dart';
 import 'package:ruse/screens/tabs/templates.dart';
 
+import '../components/constants.dart';
+
 final user = FirebaseAuth.instance.currentUser;
+final _firestore = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
 late User loggedInUser;
 
@@ -48,6 +50,21 @@ class _MainScreenState extends State<MainScreen>
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  // void getMessages() async {
+  //   final messages = await _firestore.collection('users').get();
+  //
+  //   for (var messages in messages.docs) {
+  //     print(messages.data);
+  //   }
+  // }
+  void messagesStream() async {
+    await for (var snapshot in _firestore.collection('users').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data);
+      }
     }
   }
 
@@ -149,12 +166,12 @@ class _MainScreenState extends State<MainScreen>
 
       //out ui will 3 childern name, email, photo, logout
       children: [
-        CircleAvatar(
-            backgroundImage:
-                Image.network(model.userDetails.photoURL ?? "").image,
-            radius: 50),
-        Text(model.userDetails.displayName),
-        Text(model.userDetails.email),
+        // CircleAvatar(
+        //     backgroundImage:
+        //         Image.network(model.userDetails.photoURL ?? "").image,
+        //     radius: 50),
+        Text(model.userDetails!.displayName),
+        Text(model.userDetails!.email),
 
         //logout
       ],

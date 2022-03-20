@@ -1,6 +1,6 @@
 // @dart=2.9
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 
@@ -187,36 +187,21 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
             Icons.flip,
             color: Colors.white,
           ),
-          title: Text(
-            'Flip',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Flip',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_left,
             color: Colors.white,
           ),
-          title: Text(
-            'Rotate left',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Rotate left',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.rotate_right,
             color: Colors.white,
           ),
-          title: Text(
-            'Rotate right',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          label: 'Rotate right',
         ),
       ],
       onTap: (int index) {

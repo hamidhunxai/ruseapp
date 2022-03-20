@@ -1,9 +1,29 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ruse/components/boxAndButtons.dart';
+import 'package:ruse/screens/components/boxAndButtons.dart';
 
-class Profile extends StatelessWidget {
+import 'package:ruse/screens/profile/cloud.dart';
+import 'package:ruse/screens/profile/draft.dart';
+import 'package:ruse/screens/profile/feedback.dart';
+import 'package:ruse/screens/profile/help.dart';
+import 'package:ruse/screens/profile/instructions.dart';
+import 'package:ruse/screens/profile/invite_friends.dart';
+import 'package:ruse/screens/profile/order.dart';
+import 'package:ruse/screens/profile/settings.dart';
+import 'package:ruse/screens/profile/sticker.dart';
+import 'package:ruse/screens/profile/tutorials.dart';
+
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,25 +79,49 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Order()),
+                          );
+                        },
                         title: 'Order',
                         imageUrl: 'assets/images/order.png',
                         colour: Colors.red,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Stickers()),
+                          );
+                        },
                         title: 'Sticker',
                         imageUrl: 'assets/images/sticker.png',
                         colour: Colors.purple,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Tutorials()),
+                          );
+                        },
                         title: 'Tutorials',
                         imageUrl: 'assets/images/tutorials.png',
                         colour: Colors.blueAccent,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Instructions()),
+                          );
+                        },
                         title: 'Instructions',
                         imageUrl: 'assets/images/instructions.png',
                         colour: Colors.red,
@@ -91,25 +135,48 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ProfileButtons(
-                        onPressed: () {},
-                        title: 'Drafts',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Draft()),
+                          );
+                        },
+                        title: 'Draft',
                         imageUrl: 'assets/images/Drafts.png',
                         colour: Colors.brown,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Cloud()),
+                          );
+                        },
                         title: 'Cloud',
                         imageUrl: 'assets/images/cloud.png',
                         colour: Colors.blue,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FeedBack()),
+                          );
+                        },
                         title: 'FeedBack',
                         imageUrl: 'assets/images/feed-back.png',
                         colour: Colors.yellow,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Help()),
+                          );
+                        },
                         title: 'Help',
                         imageUrl: 'assets/images/helping.png',
                         colour: Colors.blue,
@@ -124,14 +191,33 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => InviteFriends()),
+                          );
+                        },
                         title: 'Invite Friends',
                         imageUrl: 'assets/images/invite.png',
                         colour: Colors.purple,
                       ),
                       ProfileButtons(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, ProfileSettings.id);
+                        },
                         title: 'Setting',
+                        imageUrl: 'assets/images/setting.png',
+                        colour: Colors.blue,
+                      ),
+                      ProfileButtons(
+                        onPressed: () {
+                          setState(() {
+                            signOut();
+                            Navigator.pop(context);
+                          });
+                        },
+                        title: 'Sign Out',
                         imageUrl: 'assets/images/setting.png',
                         colour: Colors.blue,
                       ),
@@ -144,5 +230,10 @@ class Profile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void signOut() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signOut();
   }
 }

@@ -1,12 +1,15 @@
-// @dart=2.9
+import 'package:firebase_database/firebase_database.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class UserDetails {
-  String displayName;
-  String email;
-  String photoURL;
+  late String displayName;
+  late String email;
+  late String photoURL;
 
   //constructor
 
-  UserDetails({this.displayName, this.email, this.photoURL});
+  UserDetails(
+      {required this.displayName, required this.email, required this.photoURL});
 
   //we meed create map
 
@@ -25,4 +28,10 @@ class UserDetails {
 
     return data;
   }
+}
+
+DatabaseReference userRef = FirebaseDatabase.instance.ref().child('users');
+
+displayMessage(String message) {
+  Fluttertoast.showToast(msg: message);
 }

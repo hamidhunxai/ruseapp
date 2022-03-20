@@ -1,35 +1,40 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruse/components/boxAndButtons.dart';
-import 'package:ruse/components/constants.dart';
-import 'package:ruse/components/logo.dart';
-import 'package:ruse/components/progress_dialog.dart';
 import 'package:ruse/controllers/login_controller.dart';
 import 'package:ruse/controllers/main_controller.dart';
-import 'package:ruse/screens/forget_screen.dart';
-import 'package:ruse/screens/main_screen.dart';
-import 'package:ruse/screens/sign_up.dart';
+import 'package:ruse/screens/components/logo.dart';
+import 'package:ruse/screens/topScreens/forget_screen.dart';
+import 'package:ruse/screens/topScreens/main_screen.dart';
+import 'package:ruse/screens/topScreens/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../components/boxAndButtons.dart';
+import '../components/constants.dart';
+import '../components/progress_dialog.dart';
 
 final _auth = FirebaseAuth.instance;
 
 class SignIn extends StatefulWidget {
   static String id = "SignIn";
-
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> with TickerProviderStateMixin {
   @override
+  void initState() {
+    loginAndAuthenticateUser(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondaryColor,
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
-          child: Expanded(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -104,7 +109,9 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                         displayToastMessage(
                             "password is mandatory upto 6 digits", context);
                       } else {
-                        loginAndAuthenticateUser(context);
+                        setState(() {
+                          loginAndAuthenticateUser(context);
+                        });
                       }
                     }),
                 SizedBox(
@@ -116,6 +123,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                   textAlign: TextAlign.center,
                 ),
                 Expanded(
+                  flex: 1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -124,6 +132,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                   ),
                 ),
                 Expanded(
+                  flex: 2,
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: TextButton(
@@ -151,6 +160,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
       //if we are alreadylogin
       if (model.userDetails != null) {
         return Expanded(
+          flex: 1,
           child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
@@ -211,7 +221,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
 void loginAndAuthenticateUser(BuildContext context) async {
   showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return ProgressDialog(
           message: "Authenticating Please Wait",

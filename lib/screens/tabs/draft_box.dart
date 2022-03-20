@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ruse/components/constants.dart';
+import 'package:ruse/screens/components/constants.dart';
 
 class DraftBox extends StatefulWidget {
-
   @override
   _DraftBoxState createState() => _DraftBoxState();
 }
